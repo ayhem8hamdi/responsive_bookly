@@ -1,4 +1,5 @@
-import 'package:bookly/features/splash_feature/splash_screen.dart';
+import 'package:bookly/core/utils/app_colors.dart';
+import 'package:bookly/features/splash_feature/presentation/views/splash_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,9 +18,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      theme: ThemeData().copyWith(
+        scaffoldBackgroundColor: AppColors.kBgColor,
+      ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bookly/core/utils/app_colors.dart';
 import 'package:bookly/core/utils/app_images.dart';
 import 'package:bookly/core/utils/app_styles.dart';
+import 'package:bookly/features/splash_feature/presentation/views/widget/animated_fade_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,24 +11,23 @@ class SplashScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        width: double.infinity,
+      child: AnimatedFadeWidget(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SvgPicture.asset(
               Assets.logo,
               width: MediaQuery.sizeOf(context).width * 0.6,
               fit: BoxFit.contain,
             ),
-            const SizedBox(
-              height: 9,
-            ),
+            const SizedBox(height: 9),
             Text(
               'Read Free Books',
-              style: AppStyles.styleRegular16
-                  .copyWith(color: AppColors.kThirdColor),
+              textAlign: TextAlign.center,
+              style: AppStyles.styleRegular16.copyWith(
+                color: AppColors.kThirdColor,
+              ),
             ),
           ],
         ),
