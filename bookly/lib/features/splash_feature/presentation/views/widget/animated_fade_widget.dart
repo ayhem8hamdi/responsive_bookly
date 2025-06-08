@@ -8,7 +8,7 @@ class AnimatedFadeWidget extends StatefulWidget {
   const AnimatedFadeWidget({
     super.key,
     required this.child,
-    this.duration = const Duration(seconds: 1),
+    this.duration = const Duration(milliseconds: 870),
     this.curve = Curves.easeInOut,
   });
 
