@@ -1,6 +1,7 @@
 import 'package:bookly/core/utils/app_images.dart';
 import 'package:bookly/core/utils/app_styles.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
+import 'package:bookly/features/home/presentation/views/widgets/custom_best_seller_rating_line.dart';
 import 'package:flutter/material.dart';
 
 class BestSellerItem extends StatelessWidget {
@@ -40,6 +41,7 @@ class BestSellerItem extends StatelessWidget {
                     style: AppStyles.styleRegular14,
                   ),
                   const SizedBox(height: 8),
+                  const CustomBestSellerRatingLine()
                 ],
               ),
             )
