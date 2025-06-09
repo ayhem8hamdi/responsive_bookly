@@ -9,44 +9,42 @@ class BestSellerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Flexible(
-              flex: 4,
-              child: SizedBox(
-                height: MediaQuery.sizeOf(context).height * .184,
-                child: const BookItem(image: Assets.book1),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
+            flex: 4,
+            child: SizedBox(
+              height: MediaQuery.sizeOf(context).height * .184,
+              child: const BookItem(image: Assets.book1),
             ),
-            const SizedBox(width: 20),
-            Flexible(
-              flex: 6,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Harry Potter and the Goblet of Fire',
-                    style: AppStyles.styleRegular20,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'J.K. Rowling',
-                    style: AppStyles.styleRegular14,
-                  ),
-                  const SizedBox(height: 8),
-                  const CustomBestSellerRatingLine()
-                ],
-              ),
-            )
-          ],
-        ),
+          ),
+          const SizedBox(width: 20),
+          Flexible(
+            flex: 6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Harry Potter and the Goblet of Fire',
+                  style: AppStyles.styleRegular20,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'J.K. Rowling',
+                  style: AppStyles.styleRegular14,
+                ),
+                const SizedBox(height: 8),
+                const CustomBestSellerRatingLine()
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
