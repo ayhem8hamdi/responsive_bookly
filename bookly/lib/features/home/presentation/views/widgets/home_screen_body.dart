@@ -1,3 +1,4 @@
+import 'package:bookly/core/utils/app_images.dart';
 import 'package:bookly/features/home/presentation/views/widgets/best_seller_item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/best_seller_title.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_scroll_view_app_bar.dart';
@@ -12,7 +13,11 @@ class HomeScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        const CustomScrollViewAppBar(),
+        CustomScrollViewAppBar(
+          leftAsset: Assets.logo,
+          rightAsset: Assets.searchIcon,
+          onPressed: () {},
+        ),
         customScrollViewHorizontalBookList(context),
         const Gap(25),
         const BestSellerTitle(),
