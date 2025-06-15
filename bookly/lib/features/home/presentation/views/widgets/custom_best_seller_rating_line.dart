@@ -30,14 +30,14 @@ class RateSection extends StatelessWidget {
       children: [
         SvgPicture.asset(Assets.rateIcon),
         const SizedBox(
-          width: 3,
+          width: 4.7,
         ),
         Text(
           '4.8',
           style: AppStyles.styleRegular16,
         ),
         const SizedBox(
-          width: 3,
+          width: 4.7,
         ),
         Text(
           '(2390)',
