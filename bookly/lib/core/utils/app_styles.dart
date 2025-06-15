@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppStyles {
-  static final TextStyle baseInter = GoogleFonts.inter();
+  static final TextStyle baseInter = GoogleFonts.poppins();
 
   static final TextStyle styleRegular18 = baseInter.copyWith(
     color: AppColors.kPrimaryColor,
