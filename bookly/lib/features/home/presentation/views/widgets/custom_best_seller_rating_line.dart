@@ -8,13 +8,26 @@ class CustomBestSellerRatingLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Row(children: [
+      Text(
+        r"19.99$",
+        style: AppStyles.styleRegular20,
+      ),
+      const Spacer(),
+      const RateSection()
+    ]);
+  }
+}
+
+class RateSection extends StatelessWidget {
+  const RateSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          r"19.99$",
-          style: AppStyles.styleRegular20,
-        ),
-        const Spacer(),
         SvgPicture.asset(Assets.rateIcon),
         const SizedBox(
           width: 3,
