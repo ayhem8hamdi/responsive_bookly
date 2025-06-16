@@ -10,9 +10,9 @@ class BookDetailsImage extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Center(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.30 < 150
-              ? 150
-              : MediaQuery.of(context).size.height * 0.30,
+          height: MediaQuery.of(context).size.height * 0.35 < 160
+              ? 160
+              : MediaQuery.of(context).size.height * 0.35,
           child: const BookItem(
             image: Assets.book1,
           ),
