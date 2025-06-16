@@ -15,8 +15,31 @@ class BookDetailsBody extends StatelessWidget {
         BookDetailsAppBar(),
         BookDetailsImage(),
         BookDetailsUpperSection(),
-        PricingRow()
+        PricingRow(),
+        BookDetailsBottomSection()
       ],
     );
+  }
+}
+
+class BookDetailsBottomSection extends StatelessWidget {
+  const BookDetailsBottomSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Text('You can also like',
+              style: AppStyles.styleRegular14.copyWith(color: Colors.white)),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+      ],
+    ));
   }
 }
