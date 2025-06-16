@@ -20,7 +20,7 @@ class BookItemList extends StatelessWidget {
       itemCount: images.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(right:5),
+          padding: const EdgeInsets.only(right: 5),
           child: BookItem(
             image: images[index],
           ),

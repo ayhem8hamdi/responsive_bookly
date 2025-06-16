@@ -39,6 +39,7 @@ dependencies:
   get: ^4.7.2
   device_preview: ^1.2.0
   flutter_svg: ^2.1.0
+  equatable: ^2.0.7
 
 dev_dependencies:
   flutter_test:
