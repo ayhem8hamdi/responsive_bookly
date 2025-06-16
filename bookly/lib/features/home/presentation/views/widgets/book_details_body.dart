@@ -40,10 +40,14 @@ class PricingRow extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '19.99',
-                      style: AppStyles.styleRegular18
-                          .copyWith(color: const Color(0XFF000000)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 3),
+                      child: Text(
+                        '19.99',
+                        style: AppStyles.styleRegular18
+                            .copyWith(color: const Color(0XFF000000)),
+                      ),
                     ),
                     Text(
                       '£',
@@ -61,10 +65,13 @@ class PricingRow extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8),
                         bottomRight: Radius.circular(8))),
-                child: Text(
-                  'Free preview',
-                  style: AppStyles.styleRegular18,
-                  textAlign: TextAlign.center,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    'Free preview',
+                    style: AppStyles.styleRegular18,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             )
