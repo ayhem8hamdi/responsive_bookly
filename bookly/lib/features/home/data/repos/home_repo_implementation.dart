@@ -22,10 +22,18 @@ class HomeRepoImplementation implements HomeRepo {
       return Left(Failure.fromException(e));
     }
   }
-/*
+
   @override
-  Future<Either<Failure, List<BookModel>>> fetchF eaturedBooks() {
-    // TODO: implement fetchFeaturedBooks
-    throw UnimplementedError();
-  }*/
+  Future<Either<Failure, List<Item>>> fetchFeaturedBooks() async {
+    try {
+      var data = await apiService.get(
+          endPoint: '?Filtering=free-ebooks&q=subject:anime');
+
+      var bookModel = BookModel.fromMap(data);
+      var books = bookModel.items ?? [];
+      return Right(books);
+    } catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
 }
