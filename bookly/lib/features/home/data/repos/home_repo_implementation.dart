@@ -16,17 +16,15 @@ class HomeRepoImplementation implements HomeRepo {
           endPoint: '?Filtering=free-ebooks&Sorting=newest&q=subject:anime');
 
       var bookModel = BookModel.fromMap(data);
-
       var books = bookModel.items ?? [];
-
       return Right(books);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(Failure.fromException(e));
     }
   }
 /*
   @override
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks() {
+  Future<Either<Failure, List<BookModel>>> fetchF eaturedBooks() {
     // TODO: implement fetchFeaturedBooks
     throw UnimplementedError();
   }*/
