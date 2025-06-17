@@ -3,15 +3,20 @@ import 'package:bookly/features/home/presentation/views/widgets/book_item_list.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-SliverToBoxAdapter customScrollViewHorizontalBookList(BuildContext context) {
-  return SliverToBoxAdapter(
-    child: SizedBox(
-      height: MediaQuery.of(context).size.height * 0.28 < 150
-          ? 150
-          : MediaQuery.of(context).size.height * 0.28,
-      child: GestureDetector(
-          onTap: () => Get.toNamed(AppRouter.bookDetailsScreen),
-          child: const BookItemList()),
-    ),
-  );
+class FeaturedBooksHorizList extends StatelessWidget {
+  const FeaturedBooksHorizList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.28 < 150
+            ? 150
+            : MediaQuery.of(context).size.height * 0.28,
+        child: GestureDetector(
+            onTap: () => Get.toNamed(AppRouter.bookDetailsScreen),
+            child: const BookItemList()),
+      ),
+    );
+  }
 }
