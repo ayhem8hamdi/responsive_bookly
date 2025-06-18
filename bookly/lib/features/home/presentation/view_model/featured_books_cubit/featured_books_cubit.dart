@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
 import 'package:bookly/core/Errors/failure.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';

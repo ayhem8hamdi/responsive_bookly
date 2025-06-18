@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bookly/core/Errors/failure.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:bookly/features/home/data/repos/home_repo_implementation.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 part 'best_seller_state.dart';
 
