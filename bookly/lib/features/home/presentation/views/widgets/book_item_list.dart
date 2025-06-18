@@ -1,28 +1,22 @@
-import 'package:bookly/core/utils/app_images.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:flutter/material.dart';
 
 class BookItemList extends StatelessWidget {
-  const BookItemList({super.key});
+  const BookItemList({super.key, required this.items});
+  final List<Item> items;
 
   @override
   Widget build(BuildContext context) {
-    List<String> images = [
-      Assets.book1,
-      Assets.book2,
-      Assets.book3,
-      Assets.book4,
-      Assets.book5
-    ];
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       scrollDirection: Axis.horizontal,
-      itemCount: images.length,
+      itemCount: items.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(right: 5),
           child: BookItem(
-            image: images[index],
+            volumeInfo: items[index].volumeInfo!,
           ),
         );
       },

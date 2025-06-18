@@ -13,9 +13,10 @@ class BookDetailsImage extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.35 < 160
               ? 160
               : MediaQuery.of(context).size.height * 0.35,
-          child: const BookItem(
-            image: Assets.book1,
-          ),
+          child: const /*BookItem(
+            volumeInfo:,
+          )*/
+              SizedBox(),
         ),
       ),
     );

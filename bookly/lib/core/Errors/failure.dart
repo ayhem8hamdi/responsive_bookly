@@ -91,7 +91,7 @@ class ServerFailure extends Failure {
         );
       case DioExceptionType.connectionError:
         return ServerFailure(
-          message: 'Connection error. Please check your internet',
+          message: 'Connection error. Please check your internet connection',
           code: 'CONNECTION_ERROR',
         );
       case DioExceptionType.unknown:
@@ -156,4 +156,32 @@ class AuthenticationException implements Exception {
 class DatabaseException implements Exception {
   final String message;
   DatabaseException(this.message);
+}
+
+class ImageProcessingFailure extends Failure {
+  ImageProcessingFailure({required super.message, required super.code});
+
+  @override
+  UIFeedbackType get uiFeedbackType => UIFeedbackType.snackbar;
+
+  factory ImageProcessingFailure.fromException(Object error) {
+    return ImageProcessingFailure(
+      message: 'Image processing error: ${error.toString()}',
+      code: 'IMAGE_PROCESSING_ERROR',
+    );
+  }
+}
+
+class InvalidUrlFailure extends Failure {
+  InvalidUrlFailure({required super.message, required super.code});
+
+  @override
+  UIFeedbackType get uiFeedbackType => UIFeedbackType.none;
+
+  factory InvalidUrlFailure.fromUrl(String url) {
+    return InvalidUrlFailure(
+      message: 'Invalid image URL: $url',
+      code: 'INVALID_IMAGE_URL',
+    );
+  }
 }

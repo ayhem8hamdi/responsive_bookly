@@ -18,7 +18,7 @@ class BestSellerItem extends StatelessWidget {
             flex: 4,
             child: SizedBox(
               height: MediaQuery.sizeOf(context).height * .184,
-              child: const BookItem(image: Assets.book1),
+              child: const /*BookItem(image: Assets.book1)*/ SizedBox(),
             ),
           ),
           const SizedBox(width: 20),

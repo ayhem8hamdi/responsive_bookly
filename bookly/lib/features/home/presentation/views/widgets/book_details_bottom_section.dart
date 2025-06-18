@@ -46,7 +46,9 @@ class BottomSectionListViewHoriz extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.20 < 115
           ? 105
           : MediaQuery.of(context).size.height * 0.20,
-      child: const BookItemList(),
+      child: const BookItemList(
+        items: [],
+      ),
     );
   }
 }
