@@ -1,89 +1,63 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:bookly/core/Errors/failure.dart';
+import 'package:flutter/material.dart';
 
 class UIErrorHandler {
   static void showError(BuildContext context, Failure failure) {
     switch (failure.uiFeedbackType) {
       case UIFeedbackType.snackbar:
-        _showCustomSnackBar(context, failure.message);
+        _showFlushBar(context, failure.message);
         break;
 
       case UIFeedbackType.dialog:
-        _showCustomDialog(context, failure.message);
+        _showAwesomeDialog(context, failure.message);
         break;
 
       case UIFeedbackType.none:
-        log('${failure.message} with code ${failure.code}');
         break;
     }
   }
 
-  static void _showCustomSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-        ),
-        backgroundColor: const Color(0xFF100B20),
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        duration: const Duration(seconds: 3),
-      ),
-    );
+  static void _showFlushBar(BuildContext context, String message) {
+    Flushbar(
+      message: message,
+      margin: const EdgeInsets.all(16),
+      borderRadius: BorderRadius.circular(16),
+      backgroundColor: const Color(0xFF100B20),
+      duration: const Duration(seconds: 3),
+      flushbarPosition: FlushbarPosition.TOP,
+      animationDuration: const Duration(milliseconds: 500),
+      messageColor: Colors.white,
+      icon: const Icon(Icons.error_outline, color: Colors.white),
+    ).show(context);
   }
 
-  static void _showCustomDialog(BuildContext context, String message) {
-    showDialog(
+  static void _showAwesomeDialog(BuildContext context, String message) {
+    AwesomeDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: const Color(0xFF100B20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Oops!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                message,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text(
-                  'Dismiss',
-                  style: TextStyle(
-                    color: Color(0xFF100B20),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      dialogType: DialogType.error,
+      animType: AnimType.scale,
+      title: 'Oops!',
+      desc: message,
+      dismissOnTouchOutside: true,
+      btnOkOnPress: () {},
+      btnOkColor: Colors.white,
+      btnOkText: 'Dismiss',
+      buttonsTextStyle: const TextStyle(
+        color: Color(0xFF100B20),
+        fontWeight: FontWeight.bold,
       ),
-    );
+      dialogBackgroundColor: const Color(0xFF100B20),
+      titleTextStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      ),
+      descTextStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+      ),
+    ).show();
   }
 }
