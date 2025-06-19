@@ -1,5 +1,9 @@
 import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import 'package:shimmer/shimmer.dart';
 
 class BookItem extends StatelessWidget {
   const BookItem({super.key, required this.volumeInfo});
@@ -20,19 +24,47 @@ class BookItem extends StatelessWidget {
       padding: const EdgeInsets.only(right: 10),
       child: AspectRatio(
         aspectRatio: 150 / 224,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.grey[300],
-            image: DecorationImage(
-              image: imageUrl != null
-                  ? NetworkImage(imageUrl)
-                  : NetworkImage(volumeInfo.getFallbackImageUrl()),
-              fit: BoxFit.cover,
-              onError: (_, __) =>
-                  NetworkImage(volumeInfo.getFallbackImageUrl()),
-            ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl ?? '',
+            fit: BoxFit.cover,
+            placeholder: (context, url) => const BookImageLoader(),
+            errorWidget: (context, url, error) => const BookFallbackImage(),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BookImageLoader extends StatelessWidget {
+  const BookImageLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        color: Colors.grey[300],
+      ),
+    );
+  }
+}
+
+class BookFallbackImage extends StatelessWidget {
+  const BookFallbackImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey[200],
+      child: Center(
+        child: Icon(
+          LucideIcons.bookOpen,
+          color: Colors.grey[500],
+          size: 50,
         ),
       ),
     );
