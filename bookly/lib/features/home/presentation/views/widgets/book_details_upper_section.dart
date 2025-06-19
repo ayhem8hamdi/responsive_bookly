@@ -1,5 +1,4 @@
 import 'package:bookly/core/utils/app_styles.dart';
-import 'package:bookly/features/home/presentation/views/widgets/custom_best_seller_rating_line.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsUpperSection extends StatelessWidget {
@@ -30,7 +29,7 @@ class BookDetailsUpperSection extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          const RateSection()
+          //const RateSection()
         ],
       ),
     );

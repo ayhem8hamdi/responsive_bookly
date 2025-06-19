@@ -32,18 +32,18 @@ class BestSellerItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Harry Potter and the Goblet of Fire',
+                  volumeInfo.title ?? 'no title found',
                   style: AppStyles.styleRegular20,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'J.K. Rowling',
+                  volumeInfo.authors?[0] ?? 'no data found',
                   style: AppStyles.styleRegular14,
                 ),
                 const SizedBox(height: 8),
-                const CustomBestSellerRatingLine()
+                CustomBestSellerRatingLine(volumeInfo: volumeInfo)
               ],
             ),
           )

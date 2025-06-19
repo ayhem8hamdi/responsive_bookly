@@ -1,11 +1,12 @@
 import 'package:bookly/core/utils/app_images.dart';
 import 'package:bookly/core/utils/app_styles.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomBestSellerRatingLine extends StatelessWidget {
-  const CustomBestSellerRatingLine({super.key});
-
+  const CustomBestSellerRatingLine({super.key, required this.volumeInfo});
+  final VolumeInfo volumeInfo;
   @override
   Widget build(BuildContext context) {
     return Row(children: [
@@ -14,14 +15,16 @@ class CustomBestSellerRatingLine extends StatelessWidget {
         style: AppStyles.styleRegular20,
       ),
       const Spacer(),
-      const RateSection()
+      RateSection(
+        volumeInfo: volumeInfo,
+      )
     ]);
   }
 }
 
 class RateSection extends StatelessWidget {
-  const RateSection({super.key});
-
+  const RateSection({super.key, required this.volumeInfo});
+  final VolumeInfo volumeInfo;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,14 +36,18 @@ class RateSection extends StatelessWidget {
           width: 4.7,
         ),
         Text(
-          '4.8',
+          volumeInfo.averageRating == null
+              ? '0'
+              : volumeInfo.averageRating.toString(),
           style: AppStyles.styleRegular16,
         ),
         const SizedBox(
           width: 4.7,
         ),
         Text(
-          '(2390)',
+          volumeInfo.ratingsCount == null
+              ? '( 0 )'
+              : '( ${volumeInfo.ratingsCount.toString()} )',
           style: AppStyles.styleRegular14,
         )
       ],
