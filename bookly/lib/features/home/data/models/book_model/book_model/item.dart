@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
-
 import 'access_info.dart';
 import 'sale_info.dart';
 import 'search_info.dart';
@@ -26,6 +25,29 @@ class Item extends Equatable {
     this.accessInfo,
     this.searchInfo,
   });
+
+  // Add this copyWith method
+  Item copyWith({
+    String? kind,
+    String? id,
+    String? etag,
+    String? selfLink,
+    VolumeInfo? volumeInfo,
+    SaleInfo? saleInfo,
+    AccessInfo? accessInfo,
+    SearchInfo? searchInfo,
+  }) {
+    return Item(
+      kind: kind ?? this.kind,
+      id: id ?? this.id,
+      etag: etag ?? this.etag,
+      selfLink: selfLink ?? this.selfLink,
+      volumeInfo: volumeInfo ?? this.volumeInfo,
+      saleInfo: saleInfo ?? this.saleInfo,
+      accessInfo: accessInfo ?? this.accessInfo,
+      searchInfo: searchInfo ?? this.searchInfo,
+    );
+  }
 
   factory Item.fromMap(Map<String, dynamic> data) => Item(
         kind: data['kind'] as String?,

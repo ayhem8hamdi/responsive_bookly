@@ -1,5 +1,3 @@
-import 'package:bookly/core/utils/app_images.dart';
-import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsImage extends StatelessWidget {

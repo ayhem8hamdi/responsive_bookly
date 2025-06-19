@@ -5,12 +5,6 @@ import 'package:flutter/material.dart';
 
 class UIErrorHandler {
   static void showError(BuildContext context, Failure failure) {
-    if (!_isContextValid(context)) {
-      debugPrint(
-          'Error occurred but context is no longer valid: ${failure.message}');
-      return;
-    }
-
     switch (failure.uiFeedbackType) {
       case UIFeedbackType.snackbar:
         _showFlushBar(context, failure.message);
@@ -26,13 +20,7 @@ class UIErrorHandler {
     }
   }
 
-  static bool _isContextValid(BuildContext context) {
-    return context != null;
-  }
-
   static void _showFlushBar(BuildContext context, String message) {
-    if (!_isContextValid(context)) return;
-
     try {
       Flushbar(
         message: message,
@@ -51,8 +39,6 @@ class UIErrorHandler {
   }
 
   static void _showAwesomeDialog(BuildContext context, String message) {
-    if (!_isContextValid(context)) return;
-
     try {
       AwesomeDialog(
         context: context,

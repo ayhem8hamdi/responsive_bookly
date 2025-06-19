@@ -1,6 +1,50 @@
-import 'package:bookly/core/utils/image_loader_service.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+
+class ImageLinks extends Equatable {
+  final String? smallThumbnail;
+  final String? thumbnail;
+  final String? small;
+  final String? medium;
+  final String? large;
+  final String? extraLarge;
+
+  const ImageLinks({
+    this.smallThumbnail,
+    this.thumbnail,
+    this.small,
+    this.medium,
+    this.large,
+    this.extraLarge,
+  });
+
+  factory ImageLinks.fromMap(Map<String, dynamic> data) => ImageLinks(
+        smallThumbnail: data['smallThumbnail'] as String?,
+        thumbnail: data['thumbnail'] as String?,
+        small: data['small'] as String?,
+        medium: data['medium'] as String?,
+        large: data['large'] as String?,
+        extraLarge: data['extraLarge'] as String?,
+      );
+
+  Map<String, dynamic> toMap() => {
+        'smallThumbnail': smallThumbnail,
+        'thumbnail': thumbnail,
+        'small': small,
+        'medium': medium,
+        'large': large,
+        'extraLarge': extraLarge,
+      };
+
+  @override
+  List<Object?> get props => [
+        smallThumbnail,
+        thumbnail,
+        small,
+        medium,
+        large,
+        extraLarge,
+      ];
+}
 
 class IndustryIdentifier extends Equatable {
   final String? type;
@@ -47,8 +91,10 @@ class PanelizationSummary extends Equatable {
   final bool? containsEpubBubbles;
   final bool? containsImageBubbles;
 
-  const PanelizationSummary(
-      {this.containsEpubBubbles, this.containsImageBubbles});
+  const PanelizationSummary({
+    this.containsEpubBubbles,
+    this.containsImageBubbles,
+  });
 
   factory PanelizationSummary.fromMap(Map<String, dynamic> data) =>
       PanelizationSummary(
@@ -63,146 +109,6 @@ class PanelizationSummary extends Equatable {
 
   @override
   List<Object?> get props => [containsEpubBubbles, containsImageBubbles];
-}
-
-class ImageLinks extends Equatable {
-  final String? smallThumbnail;
-  final String? thumbnail;
-  final String? small;
-  final String? medium;
-  final String? large;
-  final String? extraLarge;
-
-  const ImageLinks({
-    this.smallThumbnail,
-    this.thumbnail,
-    this.small,
-    this.medium,
-    this.large,
-    this.extraLarge,
-  });
-
-  factory ImageLinks.fromMap(Map<String, dynamic> data) => ImageLinks(
-        smallThumbnail: _sanitizeImageUrl(data['smallThumbnail'] as String?),
-        thumbnail: _sanitizeImageUrl(data['thumbnail'] as String?),
-        small: _sanitizeImageUrl(data['small'] as String?),
-        medium: _sanitizeImageUrl(data['medium'] as String?),
-        large: _sanitizeImageUrl(data['large'] as String?),
-        extraLarge: _sanitizeImageUrl(data['extraLarge'] as String?),
-      );
-
-  static String? _sanitizeImageUrl(String? url) {
-    if (url == null || url.isEmpty) return null;
-
-    try {
-      url = url.replaceAll('http://', 'https://');
-
-      if (url.contains('books.google.com')) {
-        url = url.replaceAll(RegExp(r'&edge=[^&]*'), '');
-
-        if (url.contains('zoom=')) {
-          url = url.replaceAll(RegExp(r'zoom=\d+'), 'zoom=1');
-        } else {
-          url = url.contains('?') ? '$url&zoom=1' : '$url?zoom=1';
-        }
-
-        if (!url.contains('source=')) {
-          url =
-              url.contains('?') ? '$url&source=gbs_api' : '$url?source=gbs_api';
-        }
-
-        url = url.replaceAll(' ', '%20');
-      }
-
-      final uri = Uri.tryParse(url);
-      return uri?.hasAbsolutePath == true ? url : null;
-    } catch (e) {
-      debugPrint('Error sanitizing URL: $e');
-      return null;
-    }
-  }
-
-  Future<ImageLinks> processUrls(ImageLoaderService imageLoader) async {
-    final processed = await Future.wait([
-      _processUrl(smallThumbnail, imageLoader),
-      _processUrl(thumbnail, imageLoader),
-      _processUrl(small, imageLoader),
-      _processUrl(medium, imageLoader),
-      _processUrl(large, imageLoader),
-      _processUrl(extraLarge, imageLoader),
-    ]);
-
-    return ImageLinks(
-      smallThumbnail: processed[0],
-      thumbnail: processed[1],
-      small: processed[2],
-      medium: processed[3],
-      large: processed[4],
-      extraLarge: processed[5],
-    );
-  }
-
-  Future<String?> _processUrl(
-      String? url, ImageLoaderService imageLoader) async {
-    if (url == null) return null;
-
-    final result = await imageLoader.getLoadableImageUrl(url);
-    return result.fold(
-      (failure) {
-        debugPrint('Failed to process image URL: ${failure.message}');
-        return url; // Return original if processing fails
-      },
-      (processedUrl) => processedUrl,
-    );
-  }
-
-  String? getBestImageUrl() {
-    const imageOptions = [
-      'thumbnail',
-      'small',
-      'medium',
-      'smallThumbnail',
-      'large',
-      'extraLarge'
-    ];
-    for (final option in imageOptions) {
-      final url = switch (option) {
-        'thumbnail' => thumbnail,
-        'small' => small,
-        'medium' => medium,
-        'smallThumbnail' => smallThumbnail,
-        'large' => large,
-        'extraLarge' => extraLarge,
-        _ => null,
-      };
-      if (url != null && url.isNotEmpty) return url;
-    }
-    return null;
-  }
-
-  String getPlaceholderImageUrl(String bookTitle, String? author) {
-    final seed = '${bookTitle}_${author ?? 'unknown'}'.hashCode.abs();
-    return 'https://picsum.photos/seed/$seed/300/400';
-  }
-
-  Map<String, dynamic> toMap() => {
-        'smallThumbnail': smallThumbnail,
-        'thumbnail': thumbnail,
-        'small': small,
-        'medium': medium,
-        'large': large,
-        'extraLarge': extraLarge,
-      };
-
-  @override
-  List<Object?> get props => [
-        smallThumbnail,
-        thumbnail,
-        small,
-        medium,
-        large,
-        extraLarge,
-      ];
 }
 
 class VolumeInfo extends Equatable {
@@ -289,47 +195,6 @@ class VolumeInfo extends Equatable {
         canonicalVolumeLink: data['canonicalVolumeLink'] as String?,
       );
 
-  String? getImageUrl() => imageLinks?.getBestImageUrl();
-
-  String getFallbackImageUrl() =>
-      imageLinks?.getPlaceholderImageUrl(
-        title ?? 'Unknown Title',
-        authors?.isNotEmpty == true ? authors!.first : null,
-      ) ??
-      'https://picsum.photos/300/400';
-
-  String getDisplayImageUrl() => getImageUrl() ?? getFallbackImageUrl();
-
-  Future<VolumeInfo> processImageUrls(ImageLoaderService imageLoader) async {
-    if (imageLinks == null) return this;
-
-    final processedImageLinks = await imageLinks!.processUrls(imageLoader);
-    return VolumeInfo(
-      title: title,
-      subtitle: subtitle,
-      authors: authors,
-      publisher: publisher,
-      publishedDate: publishedDate,
-      description: description,
-      industryIdentifiers: industryIdentifiers,
-      readingModes: readingModes,
-      pageCount: pageCount,
-      printType: printType,
-      categories: categories,
-      averageRating: averageRating,
-      ratingsCount: ratingsCount,
-      maturityRating: maturityRating,
-      allowAnonLogging: allowAnonLogging,
-      contentVersion: contentVersion,
-      panelizationSummary: panelizationSummary,
-      imageLinks: processedImageLinks,
-      language: language,
-      previewLink: previewLink,
-      infoLink: infoLink,
-      canonicalVolumeLink: canonicalVolumeLink,
-    );
-  }
-
   Map<String, dynamic> toMap() => {
         'title': title,
         'subtitle': subtitle,
@@ -381,4 +246,58 @@ class VolumeInfo extends Equatable {
         infoLink,
         canonicalVolumeLink,
       ];
+
+  VolumeInfo copyWith({
+    String? title,
+    String? subtitle,
+    List<String>? authors,
+    String? publisher,
+    String? publishedDate,
+    String? description,
+    List<IndustryIdentifier>? industryIdentifiers,
+    ReadingModes? readingModes,
+    int? pageCount,
+    String? printType,
+    List<String>? categories,
+    double? averageRating,
+    int? ratingsCount,
+    String? maturityRating,
+    bool? allowAnonLogging,
+    String? contentVersion,
+    PanelizationSummary? panelizationSummary,
+    ImageLinks? imageLinks,
+    String? language,
+    String? previewLink,
+    String? infoLink,
+    String? canonicalVolumeLink,
+  }) {
+    return VolumeInfo(
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      authors: authors ?? this.authors,
+      publisher: publisher ?? this.publisher,
+      publishedDate: publishedDate ?? this.publishedDate,
+      description: description ?? this.description,
+      industryIdentifiers: industryIdentifiers ?? this.industryIdentifiers,
+      readingModes: readingModes ?? this.readingModes,
+      pageCount: pageCount ?? this.pageCount,
+      printType: printType ?? this.printType,
+      categories: categories ?? this.categories,
+      averageRating: averageRating ?? this.averageRating,
+      ratingsCount: ratingsCount ?? this.ratingsCount,
+      maturityRating: maturityRating ?? this.maturityRating,
+      allowAnonLogging: allowAnonLogging ?? this.allowAnonLogging,
+      contentVersion: contentVersion ?? this.contentVersion,
+      panelizationSummary: panelizationSummary ?? this.panelizationSummary,
+      imageLinks: imageLinks ?? this.imageLinks,
+      language: language ?? this.language,
+      previewLink: previewLink ?? this.previewLink,
+      infoLink: infoLink ?? this.infoLink,
+      canonicalVolumeLink: canonicalVolumeLink ?? this.canonicalVolumeLink,
+    );
+  }
+
+  String? getDisplayImageUrl() => imageLinks?.thumbnail;
+  String getFallbackImageUrl() =>
+      'https://via.placeholder.com/150x224?text=No+Cover';
 }
