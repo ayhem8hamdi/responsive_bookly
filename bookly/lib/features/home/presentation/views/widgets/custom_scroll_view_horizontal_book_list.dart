@@ -1,10 +1,12 @@
 import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/ui_errors_handler.dart';
 import 'package:bookly/features/home/presentation/view_model/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly/features/home/presentation/views/widgets/book_item_list.dart';
+import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+
+import 'book_item_list.dart';
 
 class FeaturedBooksHorizList extends StatelessWidget {
   const FeaturedBooksHorizList({super.key});
@@ -19,8 +21,7 @@ class FeaturedBooksHorizList extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is FeaturedBooksLoading) {
-          return const SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()));
+          return const SliverToBoxAdapter(child: BookItemListShimmer());
         } else if (state is FeaturedBooksSucces) {
           return SliverToBoxAdapter(
             child: SizedBox(
@@ -28,10 +29,11 @@ class FeaturedBooksHorizList extends StatelessWidget {
                   ? 150
                   : MediaQuery.of(context).size.height * 0.28,
               child: GestureDetector(
-                  onTap: () => Get.toNamed(AppRouter.bookDetailsScreen),
-                  child: BookItemList(
-                    items: state.books,
-                  )),
+                onTap: () => Get.toNamed(AppRouter.bookDetailsScreen),
+                child: BookItemList(
+                  items: state.books,
+                ),
+              ),
             ),
           );
         } else {
@@ -39,6 +41,31 @@ class FeaturedBooksHorizList extends StatelessWidget {
               child: Center(child: Text('No Data')));
         }
       },
+    );
+  }
+}
+
+class BookItemListShimmer extends StatelessWidget {
+  const BookItemListShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.28 < 150
+          ? 150
+          : MediaQuery.of(context).size.height * 0.28,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        itemCount: 10,
+        separatorBuilder: (_, __) => const SizedBox(width: 15),
+        itemBuilder: (_, __) => AspectRatio(
+          aspectRatio: 150 / 224,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: const BookImageLoader()),
+        ),
+      ),
     );
   }
 }

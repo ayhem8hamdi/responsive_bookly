@@ -21,7 +21,7 @@ class BookItem extends StatelessWidget {
         originalUrl != null ? _getProxiedImageUrl(originalUrl) : null;
 
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 15),
       child: AspectRatio(
         aspectRatio: 150 / 224,
         child: ClipRRect(

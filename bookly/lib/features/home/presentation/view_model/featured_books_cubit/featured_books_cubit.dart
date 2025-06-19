@@ -17,12 +17,10 @@ class FeaturedBooksCubit extends Cubit<FeaturedBooksState> {
 
     result.fold(
       (failure) {
-        // Log the error if needed
         debugPrint('FeaturedBooks Error: ${failure.message}');
         emit(FeaturedBooksFailed(failure));
       },
       (books) {
-        // Verify at least one book has an image
         final hasValidBooks =
             books.any((b) => b.volumeInfo?.getDisplayImageUrl() != null);
         emit(hasValidBooks

@@ -44,9 +44,15 @@ class HomeRepoImplementation implements HomeRepo {
 
       var bookModel = BookModel.fromMap(data);
       var books = bookModel.items ?? [];
+
       return Right(books);
-    } catch (e) {
+    } on DioException catch (e) {
       return Left(Failure.fromException(e));
+    } catch (e) {
+      return Left(UnknownFailure(
+        message: 'Unexpected error: ${e.toString()}',
+        code: 'UNKNOWN_ERROR',
+      ));
     }
   }
 }

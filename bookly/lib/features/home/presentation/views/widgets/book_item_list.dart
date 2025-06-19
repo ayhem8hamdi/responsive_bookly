@@ -13,11 +13,8 @@ class BookItemList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: items.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: BookItem(
-            volumeInfo: items[index].volumeInfo!,
-          ),
+        return BookItem(
+          volumeInfo: items[index].volumeInfo!,
         );
       },
     );
