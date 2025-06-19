@@ -1,9 +1,12 @@
 import 'package:bookly/core/utils/app_styles.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
+import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_best_seller_rating_line.dart';
 import 'package:flutter/material.dart';
 
 class BestSellerItem extends StatelessWidget {
-  const BestSellerItem({super.key});
+  const BestSellerItem({super.key, required this.volumeInfo});
+  final VolumeInfo volumeInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,9 @@ class BestSellerItem extends StatelessWidget {
             flex: 4,
             child: SizedBox(
               height: MediaQuery.sizeOf(context).height * .184,
-              child: const /*BookItem(image: Assets.book1)*/ SizedBox(),
+              child: BookItem(
+                volumeInfo: volumeInfo,
+              ),
             ),
           ),
           const SizedBox(width: 20),

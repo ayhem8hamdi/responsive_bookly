@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
                   ..fetchFeauturedBooks()),
         BlocProvider(
             create: (context) =>
-                BestSellerCubit(getIt.get<HomeRepoImplementation>()))
+                BestSellerCubit(getIt.get<HomeRepoImplementation>())
+                  ..fetchBestSellerBooks())
       ],
       child: GetMaterialApp(
         theme: ThemeData().copyWith(
