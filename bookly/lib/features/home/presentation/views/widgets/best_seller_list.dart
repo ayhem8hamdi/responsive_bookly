@@ -21,7 +21,7 @@ class BestSellerList extends StatelessWidget {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => const BestSellerItemShimmer(),
-              childCount: 6,
+              childCount: 10,
             ),
           );
         } else if (state is BestSellerSucces) {
