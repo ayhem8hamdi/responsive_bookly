@@ -58,8 +58,7 @@ class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
     });
     focusNode.unfocus();
 
-    Navigator.pop(
-        context); // This makes the back arrow go back to previous screen
+    Navigator.pop(context);
   }
 
   @override

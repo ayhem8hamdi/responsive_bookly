@@ -1,6 +1,7 @@
 import 'package:bookly/core/utils/ui_errors_handler.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
 import 'package:bookly/features/home/presentation/views/widgets/best_seller_item.dart';
+import 'package:bookly/features/home/presentation/views/widgets/best_seller_item_shimmer.dart';
 import 'package:bookly/features/search/presentation/view_model/cubit/search_cubit_cubit.dart';
 import 'package:bookly/features/search/presentation/views/widgets/instagram_like_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class SearchViewBody extends StatelessWidget {
     return Column(
       children: [
         const InstagramLikeSearchBar(),
+        const SizedBox(
+          height: 28,
+        ),
         Expanded(
           child: BlocConsumer<SearchCubitCubit, SearchCubitState>(
             listener: (context, state) {
@@ -23,7 +27,7 @@ class SearchViewBody extends StatelessWidget {
             },
             builder: (context, state) {
               if (state is SearchCubitLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const SearchedBooksSchimmerList();
               } else if (state is SearchCubitSucces) {
                 final books = state.books
                     .map((item) => item.volumeInfo)
@@ -59,6 +63,18 @@ class SearchedBookList extends StatelessWidget {
       itemCount: volumeInfo.length,
       itemBuilder: (context, index) =>
           BestSellerItem(volumeInfo: volumeInfo[index]),
+    );
+  }
+}
+
+class SearchedBooksSchimmerList extends StatelessWidget {
+  const SearchedBooksSchimmerList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) => const BestSellerItemShimmer(),
+      itemCount: 15,
     );
   }
 }
