@@ -1,10 +1,16 @@
+import 'dart:developer';
+
+import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/ui_errors_handler.dart';
-import 'package:bookly/features/home/presentation/views/widgets/book_item_list.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
+import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/bottom_section_title.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_scroll_view_horizontal_book_list.dart';
+import 'package:bookly/features/home/presentation/views/widgets/may_also_like_section.dart';
 import 'package:bookly/features/search/presentation/view_model/cubit/search_cubit_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class BookDetailsBottomSection extends StatelessWidget {
   const BookDetailsBottomSection({super.key});
@@ -41,7 +47,7 @@ class BottomSectionListViewHoriz extends StatelessWidget {
           return const MayAlsoLikeBooksSizedBox(widget: BookItemListShimmer());
         } else if (state is SearchCubitSucces) {
           return MayAlsoLikeBooksSizedBox(
-            widget: BookItemList(items: state.books),
+            widget: BottomSectionBookItemList(items: state.books),
           );
         } else {
           return const MayAlsoLikeBooksSizedBox(
@@ -53,18 +59,28 @@ class BottomSectionListViewHoriz extends StatelessWidget {
   }
 }
 
-class MayAlsoLikeBooksSizedBox extends StatelessWidget {
-  const MayAlsoLikeBooksSizedBox({super.key, required this.widget});
-
-  final Widget widget;
+class BottomSectionBookItemList extends StatelessWidget {
+  const BottomSectionBookItemList({super.key, required this.items});
+  final List<Item> items;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.20 < 115
-          ? 105
-          : MediaQuery.of(context).size.height * 0.20,
-      child: widget,
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      scrollDirection: Axis.horizontal,
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            log('tapped');
+            Get.toNamed(AppRouter.bookDetailsScreen,
+                arguments: items[index].volumeInfo!);
+          },
+          child: BookItem(
+            volumeInfo: items[index].volumeInfo!,
+          ),
+        );
+      },
     );
   }
 }
