@@ -1,6 +1,7 @@
 import 'package:bookly/core/utils/api_service.dart';
 import 'package:bookly/core/utils/image_loader_service.dart';
 import 'package:bookly/features/home/data/repos/home_repo_implementation.dart';
+import 'package:bookly/features/search/data/SearchRepo/search_repo_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -13,5 +14,8 @@ void setup() {
   getIt.registerLazySingleton<HomeRepoImplementation>(
     () => HomeRepoImplementation(
         getIt<ApiService>(), getIt<ImageLoaderService>()),
+  );
+  getIt.registerLazySingleton<SearchRepoImpl>(
+    () => SearchRepoImpl(getIt<ApiService>()),
   );
 }
