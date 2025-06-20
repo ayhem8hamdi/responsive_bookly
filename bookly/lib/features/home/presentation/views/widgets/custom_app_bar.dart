@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    super.key,
-    required this.leftAsset,
-    required this.rightAsset,
-    required this.onPressed,
-  });
+  const CustomAppBar(
+      {super.key,
+      required this.leftAsset,
+      required this.rightAsset,
+      required this.onPressed,
+      this.onrightPressed});
 
   final String leftAsset;
   final String rightAsset;
   final void Function() onPressed;
+  final void Function()? onrightPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
         ),
         const Spacer(),
         IconButton(
-          onPressed: () {}, // Right icon does nothing for now
+          onPressed: onrightPressed,
           icon: SvgPicture.asset(rightAsset),
         )
       ],

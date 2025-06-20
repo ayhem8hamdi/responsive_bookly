@@ -2,16 +2,17 @@ import 'package:bookly/features/home/presentation/views/widgets/custom_app_bar.d
 import 'package:flutter/material.dart';
 
 class CustomScrollViewAppBar extends StatelessWidget {
-  const CustomScrollViewAppBar({
-    super.key,
-    required this.leftAsset,
-    required this.rightAsset,
-    required this.onPressed,
-  });
+  const CustomScrollViewAppBar(
+      {super.key,
+      required this.leftAsset,
+      required this.rightAsset,
+      required this.onPressed,
+      this.onRightPressed});
 
   final String leftAsset;
   final String rightAsset;
   final void Function() onPressed;
+  final void Function()? onRightPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class CustomScrollViewAppBar extends StatelessWidget {
           onPressed: onPressed,
           leftAsset: leftAsset,
           rightAsset: rightAsset,
+          onrightPressed: onRightPressed,
         ),
       ),
     );
