@@ -19,7 +19,12 @@ class FeaturedBooksHorizList extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is FeaturedBooksLoading) {
-          return const SliverToBoxAdapter(child: BookItemListShimmer());
+          return SliverToBoxAdapter(
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.28 < 150
+                      ? 150
+                      : MediaQuery.of(context).size.height * 0.28,
+                  child: const BookItemListShimmer()));
         } else if (state is FeaturedBooksSucces) {
           return SliverToBoxAdapter(
             child: SizedBox(
@@ -45,21 +50,16 @@ class BookItemListShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.28 < 150
-          ? 150
-          : MediaQuery.of(context).size.height * 0.28,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        itemCount: 10,
-        separatorBuilder: (_, __) => const SizedBox(width: 15),
-        itemBuilder: (_, __) => AspectRatio(
-          aspectRatio: 150 / 224,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: const BookImageLoader()),
-        ),
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      itemCount: 10,
+      separatorBuilder: (_, __) => const SizedBox(width: 15),
+      itemBuilder: (_, __) => AspectRatio(
+        aspectRatio: 150 / 224,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: const BookImageLoader()),
       ),
     );
   }

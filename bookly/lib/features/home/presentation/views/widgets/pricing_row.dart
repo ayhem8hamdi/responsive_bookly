@@ -28,23 +28,14 @@ class LeftPricingWidget extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8), bottomLeft: Radius.circular(8))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
-              child: Text(
-                '19.99',
-                style: AppStyles.styleRegular18
-                    .copyWith(color: const Color(0XFF000000)),
-              ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
+          child: Center(
+            child: Text(
+              'Download',
+              style: AppStyles.styleRegular18.copyWith(color: Colors.black),
             ),
-            Text(
-              '£',
-              style: AppStyles.styleRegular18
-                  .copyWith(color: const Color(0XFF000000), fontSize: 15),
-            ),
-          ],
+          ),
         ),
       ),
     );
