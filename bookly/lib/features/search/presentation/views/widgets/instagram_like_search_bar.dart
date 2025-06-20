@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bookly/features/search/presentation/view_model/cubit/search_cubit_cubit.dart';
 
 class InstagramLikeSearchBar extends StatefulWidget {
   const InstagramLikeSearchBar({super.key});
@@ -10,8 +14,34 @@ class InstagramLikeSearchBar extends StatefulWidget {
 
 class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
   bool isSearching = false;
-  FocusNode focusNode = FocusNode();
-  TextEditingController controller = TextEditingController();
+  late FocusNode focusNode;
+  late TextEditingController controller;
+
+  Timer? _debounce;
+
+  static const Duration debounceDuration = Duration(milliseconds: 500);
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    controller = TextEditingController();
+
+    controller.addListener(_onSearchTextChanged);
+  }
+
+  void _onSearchTextChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(debounceDuration, () {
+      final query = controller.text.trim();
+      if (query.isNotEmpty) {
+        context.read<SearchCubitCubit>().fetchSearchedBooks(bookName: query);
+      } else {
+        context.read<SearchCubitCubit>().clearSearch();
+      }
+    });
+  }
 
   void startSearch() {
     setState(() {
@@ -21,13 +51,23 @@ class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
   }
 
   void stopSearch() {
-    Navigator.pop(context);
+    controller.clear();
+    context.read<SearchCubitCubit>().clearSearch();
+    setState(() {
+      isSearching = false;
+    });
+    focusNode.unfocus();
+
+    Navigator.pop(
+        context); // This makes the back arrow go back to previous screen
   }
 
   @override
   void dispose() {
-    focusNode.dispose();
+    _debounce?.cancel();
+    controller.removeListener(_onSearchTextChanged);
     controller.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
