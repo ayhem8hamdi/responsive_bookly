@@ -36,15 +36,7 @@ class SearchCubitCubit extends Cubit<SearchCubitState> {
           emit(SearchCubitFailure(failure));
         },
         (books) {
-          final hasValidBooks =
-              books.any((b) => b.volumeInfo?.getDisplayImageUrl() != null);
-
-          emit(hasValidBooks
-              ? SearchCubitSucces(books)
-              : SearchCubitFailure(ImageProcessingFailure(
-                  message: 'No valid book images found',
-                  code: 'NO_IMAGES',
-                )));
+          emit(SearchCubitSucces(books));
         },
       );
     });

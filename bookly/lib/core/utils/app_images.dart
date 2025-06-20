@@ -9,5 +9,5 @@ abstract class Assets {
   static const String book3 = 'assets/book_3.jpg';
   static const String book4 = 'assets/image_4.jpg';
   static const String book5 = 'assets/image_5.jpg';
-  static const String search = 'assets/search_failed.json';
+  static const String searchFailed = 'assets/search_failed.json';
 }

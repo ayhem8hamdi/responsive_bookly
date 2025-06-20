@@ -1,3 +1,4 @@
+import 'package:bookly/features/home/presentation/views/widgets/gap.dart';
 import 'package:bookly/features/search/presentation/views/widgets/instagram_like_search_bar.dart';
 import 'package:bookly/features/search/presentation/views/widgets/searched_books_result.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +8,10 @@ class SearchViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        InstagramLikeSearchBar(),
-        SizedBox(
-          height: 28,
-        ),
+    return const CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(child: InstagramLikeSearchBar()),
+        Gap(29),
         SearchedBooksResult()
       ],
     );
