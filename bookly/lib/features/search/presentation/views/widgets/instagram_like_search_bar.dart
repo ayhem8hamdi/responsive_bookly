@@ -83,11 +83,12 @@ class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 10),
                           child: Row(
                             children: [
                               const Icon(Icons.search),
-                              Text('Search',
+                              Text('  Search',
                                   style: TextStyle(color: Colors.grey[600])),
                             ],
                           ),
