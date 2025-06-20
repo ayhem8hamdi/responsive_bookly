@@ -10,6 +10,7 @@ class SearchViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CustomScrollView(
       slivers: [
+        Gap(33),
         SliverToBoxAdapter(child: InstagramLikeSearchBar()),
         Gap(29),
         SearchedBooksResult()

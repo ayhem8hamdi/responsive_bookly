@@ -11,8 +11,8 @@ class CustomBestSellerRatingLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       Text(
-        r"19.99$",
-        style: AppStyles.styleRegular20,
+        r"Free",
+        style: AppStyles.styleRegular20.copyWith(color: Colors.green),
       ),
       const Spacer(),
       RateSection(

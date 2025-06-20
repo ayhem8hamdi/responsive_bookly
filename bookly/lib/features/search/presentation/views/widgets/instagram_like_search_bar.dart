@@ -88,7 +88,7 @@ class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
           ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: GestureDetector(
               onTap: startSearch,
               child: FadeInRight(
@@ -106,10 +106,7 @@ class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
                           focusNode: focusNode,
                           controller: controller,
                           decoration: InputDecoration(
-                            suffixIcon: const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: Icon(Icons.search),
-                            ),
+                            suffixIcon: const Icon(Icons.search),
                             hintText: 'Search',
                             filled: true,
                             fillColor: Colors.grey[200],
@@ -118,26 +115,35 @@ class InstagramLikeSearchBarState extends State<InstagramLikeSearchBar> {
                               borderSide: BorderSide.none,
                             ),
                             contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                                const EdgeInsets.symmetric(horizontal: 16),
                           ),
                         )
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 10),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.search),
-                              Text('  Search',
-                                  style: TextStyle(color: Colors.grey[600])),
-                            ],
-                          ),
-                        ),
+                      : const InactiveSearchBar(),
                 ),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class InactiveSearchBar extends StatelessWidget {
+  const InactiveSearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+      child: Row(
+        children: [
+          const Icon(Icons.search),
+          Text('  Search', style: TextStyle(color: Colors.grey[600])),
+        ],
+      ),
     );
   }
 }

@@ -40,6 +40,8 @@ class BestSellerItem extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   volumeInfo.authors?[0] ?? 'no data found',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: AppStyles.styleRegular14,
                 ),
                 const SizedBox(height: 8),
