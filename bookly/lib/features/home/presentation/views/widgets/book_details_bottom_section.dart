@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/ui_errors_handler.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
@@ -72,9 +71,15 @@ class BottomSectionBookItemList extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            log('tapped');
-            Get.toNamed(AppRouter.bookDetailsScreen,
-                arguments: items[index].volumeInfo!);
+            context.read<SearchCubitCubit>().fetchYouMayLikeBooks(
+                  selectedBook: items[index].volumeInfo!,
+                );
+
+            Get.toNamed(
+              AppRouter.bookDetailsScreen,
+              arguments: items[index].volumeInfo!,
+              preventDuplicates: false,
+            );
           },
           child: BookItem(
             volumeInfo: items[index].volumeInfo!,

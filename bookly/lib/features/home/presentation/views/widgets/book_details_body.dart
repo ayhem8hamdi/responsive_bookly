@@ -14,7 +14,7 @@ class BookDetailsBody extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         const BookDetailsAppBar(),
-        const BookDetailsImage(),
+        BookDetailsImage(book: book),
         BookDetailsUpperSection(book: book),
         const PricingRow(),
         const BookDetailsBottomSection()

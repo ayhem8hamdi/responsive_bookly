@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:bookly/core/Errors/failure.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
 import 'package:bookly/features/search/data/SearchRepo/search_repo_impl.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +42,24 @@ class SearchCubitCubit extends Cubit<SearchCubitState> {
         },
       );
     });
+  }
+
+  Future<void> fetchYouMayLikeBooks({required VolumeInfo selectedBook}) async {
+    emit(SearchCubitLoading());
+
+    final result =
+        await searchRepoImpl.fetchYouMayLikeBooks(selectedBook: selectedBook);
+
+    result.fold(
+      (failure) {
+        debugPrint('You May Like Error: ${failure.message}');
+        emit(SearchCubitFailure(failure));
+      },
+      (books) {
+        log('succes');
+        emit(SearchCubitSucces(books));
+      },
+    );
   }
 
   void clearSearch() {

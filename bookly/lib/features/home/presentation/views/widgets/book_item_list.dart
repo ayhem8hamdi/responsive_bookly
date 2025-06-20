@@ -19,8 +19,9 @@ class BookItemList extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            context.read<SearchCubitCubit>().fetchSearchedBooks(
-                bookName: items[index].volumeInfo!.title ?? '');
+            context
+                .read<SearchCubitCubit>()
+                .fetchYouMayLikeBooks(selectedBook: items[index].volumeInfo!);
             Get.toNamed(AppRouter.bookDetailsScreen,
                 arguments: items[index].volumeInfo!);
           },
