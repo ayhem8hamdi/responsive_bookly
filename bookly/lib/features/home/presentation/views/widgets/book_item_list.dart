@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BookItemList extends StatelessWidget {
   const BookItemList({super.key, required this.items});
@@ -13,8 +17,15 @@ class BookItemList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: items.length,
       itemBuilder: (context, index) {
-        return BookItem(
-          volumeInfo: items[index].volumeInfo!,
+        return GestureDetector(
+          onTap: () {
+            log('tapped');
+            Get.toNamed(AppRouter.bookDetailsScreen,
+                arguments: items[index].volumeInfo!);
+          },
+          child: BookItem(
+            volumeInfo: items[index].volumeInfo!,
+          ),
         );
       },
     );

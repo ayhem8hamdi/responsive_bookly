@@ -1,10 +1,8 @@
-import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/ui_errors_handler.dart';
 import 'package:bookly/features/home/presentation/view_model/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 import 'book_item_list.dart';
 
@@ -28,11 +26,8 @@ class FeaturedBooksHorizList extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.28 < 150
                   ? 150
                   : MediaQuery.of(context).size.height * 0.28,
-              child: GestureDetector(
-                onTap: () => Get.toNamed(AppRouter.bookDetailsScreen),
-                child: BookItemList(
-                  items: state.books,
-                ),
+              child: BookItemList(
+                items: state.books,
               ),
             ),
           );
