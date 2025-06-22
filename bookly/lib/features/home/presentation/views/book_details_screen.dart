@@ -1,4 +1,4 @@
-import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_details_body.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +9,10 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final book = Get.arguments as VolumeInfo;
+    final book = Get.arguments as Item;
     return SafeArea(
       child: Scaffold(
-        body: BookDetailsBody(book: book),
+        body: BookDetailsBody(item: book),
       ),
     );
   }

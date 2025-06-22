@@ -25,12 +25,12 @@ class BottomSectionBookItemList extends StatelessWidget {
 
             Get.toNamed(
               AppRouter.bookDetailsScreen,
-              arguments: items[index].volumeInfo!,
+              arguments: items[index],
               preventDuplicates: false,
             );
           },
           child: BookItem(
-            volumeInfo: items[index].volumeInfo!,
+            item: items[index],
           ),
         );
       },

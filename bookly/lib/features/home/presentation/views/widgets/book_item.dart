@@ -1,4 +1,4 @@
-import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -6,8 +6,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BookItem extends StatelessWidget {
-  const BookItem({super.key, required this.volumeInfo});
-  final VolumeInfo volumeInfo;
+  const BookItem({super.key, required this.item});
+  final Item item;
 
   String _getProxiedImageUrl(String originalUrl) {
     if (originalUrl.isEmpty) return originalUrl;
@@ -16,7 +16,7 @@ class BookItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final originalUrl = volumeInfo.getDisplayImageUrl();
+    final originalUrl = item.volumeInfo!.getDisplayImageUrl();
     final imageUrl =
         originalUrl != null ? _getProxiedImageUrl(originalUrl) : null;
 

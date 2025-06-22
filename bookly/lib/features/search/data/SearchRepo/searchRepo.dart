@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
 import 'package:dartz/dartz.dart';

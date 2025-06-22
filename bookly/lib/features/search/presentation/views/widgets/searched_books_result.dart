@@ -1,5 +1,4 @@
 import 'package:bookly/core/utils/ui_errors_handler.dart';
-import 'package:bookly/features/home/data/models/book_model/book_model/volume_info.dart';
 import 'package:bookly/features/search/presentation/view_model/cubit/search_cubit_cubit.dart';
 import 'package:bookly/features/search/presentation/views/widgets/no_result_widget.dart';
 import 'package:bookly/features/search/presentation/views/widgets/searched_books_list.dart';
@@ -22,16 +21,11 @@ class SearchedBooksResult extends StatelessWidget {
         if (state is SearchCubitLoading) {
           return const SearchedBooksShimmerSliverList();
         } else if (state is SearchCubitSucces) {
-          final books = state.books
-              .map((item) => item.volumeInfo)
-              .whereType<VolumeInfo>()
-              .toList();
-
-          if (books.isEmpty) {
+          if (state.books.isEmpty) {
             return const NoResultsFoundSliver();
           }
 
-          return SearchedBookSliverList(volumeInfo: books);
+          return SearchedBookSliverList(items: state.books);
         } else if (state is SearchCubitFailure) {
           return SliverFillRemaining(
             child: Center(

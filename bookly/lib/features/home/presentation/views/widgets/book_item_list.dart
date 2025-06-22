@@ -22,11 +22,10 @@ class BookItemList extends StatelessWidget {
             context
                 .read<SearchCubitCubit>()
                 .fetchYouMayLikeBooks(selectedBook: items[index].volumeInfo!);
-            Get.toNamed(AppRouter.bookDetailsScreen,
-                arguments: items[index].volumeInfo!);
+            Get.toNamed(AppRouter.bookDetailsScreen, arguments: items[index]);
           },
           child: BookItem(
-            volumeInfo: items[index].volumeInfo!,
+            item: items[index],
           ),
         );
       },

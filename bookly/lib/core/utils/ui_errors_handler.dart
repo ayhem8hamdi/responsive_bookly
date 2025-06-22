@@ -7,11 +7,11 @@ class UIErrorHandler {
   static void showError(BuildContext context, Failure failure) {
     switch (failure.uiFeedbackType) {
       case UIFeedbackType.snackbar:
-        _showFlushBar(context, failure.message);
+        showFlushBar(context, failure.message);
         break;
 
       case UIFeedbackType.dialog:
-        _showAwesomeDialog(context, failure.message);
+        showAwesomeDialog(context, failure.message);
         break;
 
       case UIFeedbackType.none:
@@ -20,7 +20,7 @@ class UIErrorHandler {
     }
   }
 
-  static void _showFlushBar(BuildContext context, String message) {
+  static void showFlushBar(BuildContext context, String message) {
     try {
       Flushbar(
         message: message,
@@ -38,7 +38,7 @@ class UIErrorHandler {
     }
   }
 
-  static void _showAwesomeDialog(BuildContext context, String message) {
+  static void showAwesomeDialog(BuildContext context, String message) {
     try {
       AwesomeDialog(
         context: context,

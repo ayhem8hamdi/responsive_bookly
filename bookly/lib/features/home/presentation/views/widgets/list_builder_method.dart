@@ -18,12 +18,12 @@ SliverList bestSellerSliverList(BestSellerSucces state) {
 
             Get.toNamed(
               AppRouter.bookDetailsScreen,
-              arguments: state.books[index].volumeInfo!,
+              arguments: state.books[index],
               preventDuplicates: false,
             );
           },
           child: BestSellerItem(
-            volumeInfo: state.books[index].volumeInfo!,
+            item: state.books[index],
           ),
         );
       },

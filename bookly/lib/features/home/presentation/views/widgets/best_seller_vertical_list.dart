@@ -11,7 +11,7 @@ class BestSellerVerticalList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           return BestSellerItem(
-            volumeInfo: items[index].volumeInfo!,
+            item: items[index],
           );
         },
         childCount: items.length,
