@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bookly/core/utils/ui_errors_handler.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
 import 'package:bookly/features/home/presentation/views/widgets/button_action_section.dart';
@@ -16,7 +18,7 @@ class PricingRow extends StatelessWidget {
         child: Row(
           children: [
             LeftPricingWidget(
-              onTap: () => _handleInfoLink(context),
+              onTap: () => _handleDownload(context),
             ),
             RightPricingWidget(
               onTap: () => _handlePreview(context),
@@ -35,23 +37,41 @@ class PricingRow extends StatelessWidget {
     }
 
     final url = Uri.parse(item.volumeInfo!.previewLink!);
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(url)) {
       UIErrorHandler.showAwesomeDialog(context, 'Could not launch preview');
     }
   }
 
-  Future<void> _handleInfoLink(BuildContext context) async {
-    if (item.volumeInfo!.infoLink == null ||
-        item.volumeInfo!.infoLink!.isEmpty) {
-      UIErrorHandler.showAwesomeDialog(
-          context, 'No Additional Information Available');
+  Future<void> _handleDownload(BuildContext context) async {
+    // Check if PDF download is available
+    final downloadLink = item.accessInfo?.pdf?.downloadLink;
+
+    if (downloadLink == null || downloadLink.isEmpty) {
+      // Check if EPUB is available as fallback
+      final epubLink = item.accessInfo?.epub?.downloadLink;
+
+      if (epubLink == null || epubLink.isEmpty) {
+        UIErrorHandler.showAwesomeDialog(
+            context,
+            'This book is not available for download. '
+            'Only public domain books can be downloaded for free.');
+        return;
+      }
+
+      // Launch EPUB download if available
+      final epubUrl = Uri.parse(epubLink);
+      if (!await launchUrl(epubUrl)) {
+        UIErrorHandler.showAwesomeDialog(
+            context, 'Could not launch EPUB download');
+      }
       return;
     }
 
-    final url = Uri.parse(item.volumeInfo!.infoLink!);
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    // Launch PDF download
+    final pdfUrl = Uri.parse(downloadLink);
+    if (!await launchUrl(pdfUrl)) {
       UIErrorHandler.showAwesomeDialog(
-          context, 'Could not open book information');
+          context, 'Could not launch PDF download');
     }
   }
 }

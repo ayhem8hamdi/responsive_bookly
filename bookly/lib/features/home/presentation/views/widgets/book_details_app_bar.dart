@@ -18,12 +18,12 @@ class BookDetailsAppBar extends StatelessWidget {
       leftAsset: Assets.sortirIcon,
       rightAsset: Assets.cartIcon,
       onPressed: () {
-        context.read<SearchCubitCubit>().fetchYouMayLikeBooks(
-              selectedBook: item.volumeInfo!,
-            );
         if (Navigator.canPop(context)) {
           Get.back();
         }
+        context.read<SearchCubitCubit>().fetchYouMayLikeBooks(
+              selectedBook: item.volumeInfo!,
+            );
       },
     );
   }
