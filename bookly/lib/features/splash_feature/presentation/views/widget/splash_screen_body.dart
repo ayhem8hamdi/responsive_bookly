@@ -18,8 +18,8 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-        const Duration(seconds: 3), () => Get.offNamed(AppRouter.homeScreen));
+    Future.delayed(const Duration(milliseconds: 3400),
+        () => Get.offNamed(AppRouter.homeScreen));
   }
 
   @override
