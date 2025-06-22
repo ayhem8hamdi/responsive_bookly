@@ -27,7 +27,7 @@ class HomeScreenBody extends StatelessWidget {
         const Gap(25),
         const BestSellerTitle(),
         const Gap(18),
-        const BestSellerList(),
+        const BestSellerList()
       ],
     );
   }

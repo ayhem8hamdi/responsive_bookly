@@ -24,6 +24,7 @@ class BookDetailsUpperSection extends StatelessWidget {
               book.title.toString(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
               style: AppStyles.styleRegular30,
             ),
           ),

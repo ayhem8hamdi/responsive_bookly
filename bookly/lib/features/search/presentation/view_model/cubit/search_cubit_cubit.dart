@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:bookly/core/Errors/failure.dart';
 import 'package:bookly/features/home/data/models/book_model/book_model/item.dart';
@@ -56,7 +55,6 @@ class SearchCubitCubit extends Cubit<SearchCubitState> {
         emit(SearchCubitFailure(failure));
       },
       (books) {
-        log('succes');
         emit(SearchCubitSucces(books));
       },
     );

@@ -1,7 +1,7 @@
 import 'package:bookly/core/utils/ui_errors_handler.dart';
 import 'package:bookly/features/home/presentation/view_model/best_seller_cubit/cubit/best_seller_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/best_seller_item_shimmer.dart';
-import 'package:bookly/features/home/presentation/views/widgets/best_seller_vertical_list.dart';
+import 'package:bookly/features/home/presentation/views/widgets/list_builder_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,9 +25,7 @@ class BestSellerList extends StatelessWidget {
             ),
           );
         } else if (state is BestSellerSucces) {
-          return BestSellerVerticalList(
-            items: state.books,
-          );
+          return bestSellerSliverList(state);
         } else {
           return const SliverToBoxAdapter(
               child: Center(child: Text('No Data')));

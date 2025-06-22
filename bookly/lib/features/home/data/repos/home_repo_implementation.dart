@@ -39,13 +39,39 @@ class HomeRepoImplementation implements HomeRepo {
   @override
   Future<Either<Failure, List<Item>>> fetchBestSellerBooks() async {
     try {
-      var data =
-          await apiService.get(endPoint: '?Filtering=free-ebooks&q=FootBall');
+      List<String> popularCategories = [
+        'fiction',
+        'business',
+        'self-help',
+        'technology',
+        'history',
+        'science',
+        'romance',
+        'mystery',
+      ];
 
-      var bookModel = BookModel.fromMap(data);
-      var books = bookModel.items ?? [];
+      List<Item> allBooks = [];
 
-      return Right(books);
+      for (var category in popularCategories) {
+        var data = await apiService.get(
+          endPoint:
+              '?q=subject:$category&filter=free-ebooks&orderBy=relevance&maxResults=10',
+        );
+
+        var bookModel = BookModel.fromMap(data);
+        var books = bookModel.items ?? [];
+
+        // Avoid duplicates
+        allBooks.addAll(
+            books.where((book) => !allBooks.any((b) => b.id == book.id)));
+
+        if (allBooks.length >= 40) {
+          // Get enough books, but not excessive
+          break;
+        }
+      }
+
+      return Right(allBooks);
     } on DioException catch (e) {
       return Left(Failure.fromException(e));
     } catch (e) {
