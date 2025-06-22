@@ -43,7 +43,14 @@
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>https</string> 
+  <string>http</string> <!-- For any legacy links -->
+  <string>googlechromes</string> <!-- For Chrome -->
+  <string>comgooglemaps</string> <!-- For Google Maps -->
+  <string>youtube</string> <!-- For YouTube -->
+  <string>mailto</string> <!-- For email links -->
+</array>
 </dict>
 </plist>

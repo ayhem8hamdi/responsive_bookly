@@ -2,7 +2,34 @@
     <!-- Add these permissions for internet access -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <!-- Provide required visibility configuration for API level 30 and above -->
+<queries>
+  <!-- Standard web browsing -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="https" />
+    <data android:scheme="http" />
+  </intent>
+  
+  <!-- Chrome Custom Tabs -->
+  <intent>
+    <action android:name="android.support.customtabs.action.CustomTabsService" />
+  </intent>
+  
+  <!-- Google-specific services -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="googlechromes" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:host="maps.google.com" android:scheme="https" />
+  </intent>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:host="www.youtube.com" android:scheme="https" />
+  </intent>
+</queries>
     <application
         android:label="bookly"
         android:name="${applicationName}"
